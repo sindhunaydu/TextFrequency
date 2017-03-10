@@ -1,3 +1,6 @@
+/*
+ * Class Chapter contains the highest Text Frequency value, corresponding word and location 
+ * */
 public class Chapter implements Comparable<Chapter> {
 	String location;
 	float highestTextFrequency;
@@ -37,6 +40,7 @@ public class Chapter implements Comparable<Chapter> {
 		this.word = word;
 	}
 
+	// Method to compare and sort the data based on Text Frequency value.
 	@Override
 	public int compareTo(Chapter o) {
 		if (this.getHighestTextFrequency() > o.getHighestTextFrequency())
@@ -44,5 +48,4 @@ public class Chapter implements Comparable<Chapter> {
 		else
 			return -1;
 	}
-
 }

@@ -2,9 +2,9 @@ import java.util.*;
 import java.net.*;
 import java.io.*;
 
+//Class TextFrequency calculates the Text Frequency value for each word in a document.
 public class TextFrequency {
 	protected Map<Float, String> computeTextFrequency(URL location) {
-
 		Map<Float, String> wordCount = new HashMap<Float, String>();
 		Map<Float, String> sortedWordCount;
 		try {
@@ -13,9 +13,12 @@ public class TextFrequency {
 			while (sc.hasNext()) {
 				text += sc.nextLine();
 			}
+			// Punctuation marks are replaced with blank space. Each word is
+			// then converted to lower case.
 			String[] keys = text.replaceAll("[^a-zA-Z- ]", " ").toLowerCase().split("\\s+");
 			String[] uniqueKeys;
 			int count = 0, queequegCount = 0, whaleCount = 0, seaCount = 0;
+			// Identify unique words from the document
 			uniqueKeys = getUniqueKeys(keys);
 			for (String key : uniqueKeys) {
 				if (null == key) {
@@ -26,6 +29,7 @@ public class TextFrequency {
 						count++;
 					}
 				}
+				//Calculating Text Frequency of queequeg, whale and sea in each document.
 				if (key.equals("queequeg")) {
 					queequegCount++;
 				}
@@ -35,6 +39,7 @@ public class TextFrequency {
 				if (key.equals("sea")) {
 					seaCount++;
 				}
+				// Text Frequency and word are added to the wordCount HashMap
 				wordCount.put(((float) count / keys.length), key);
 				count = 0;
 			}
@@ -47,10 +52,14 @@ public class TextFrequency {
 		} catch (IOException e) {
 			System.out.println(e);
 		}
+		// The wordCount HashMap is added to the sortedWordCount TreeMap to be
+		// sorted in ascending order based on the frequency value.
 		sortedWordCount = new TreeMap<Float, String>(wordCount);
+		//Sorted Map is returned. 
 		return sortedWordCount;
 	}
-
+	
+	//getUniqueKeys() identifies duplicates. 
 	private static String[] getUniqueKeys(String[] keys) {
 		String[] uniqueKeys = new String[keys.length];
 		uniqueKeys[0] = keys[0];
@@ -70,5 +79,4 @@ public class TextFrequency {
 		}
 		return uniqueKeys;
 	}
-
 }
