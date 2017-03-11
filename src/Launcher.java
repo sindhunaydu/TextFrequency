@@ -21,10 +21,6 @@ public class Launcher {
 		// order. The highest value fetched and instantiated as a Chapter class.
 		chapter = new Chapter(location, ((float) chapterWordCount.keySet().toArray()[chapterWordCount.size() - 1]),
 				chapterWordCount.get(chapterWordCount.keySet().toArray()[chapterWordCount.size() - 1]));
-		System.out.println(
-				location + "    " + ((float) chapterWordCount.keySet().toArray()[chapterWordCount.size() - 1]) + "    "
-						+ chapterWordCount.get(chapterWordCount.keySet().toArray()[chapterWordCount.size() - 1]));
-		// Object contains highest Text Frequency information.
 		return chapter;
 	}
 
@@ -47,9 +43,9 @@ public class Launcher {
 		// The ArrayList is sorted to identify and display the document with
 		// highest Text Frequency.
 		Collections.sort(result);
-		System.out.println("RESULT: " + result.get(result.size() - 1).getLocation() + "\n"
-				+ result.get(result.size() - 1).getHighestTextFrequency() + "\n"
-				+ result.get(result.size() - 1).getWord());
+		System.out.println("\nRESULT " + "\nWord with highest TF: " + result.get(result.size() - 1).getWord()
+				+ "\nTF of the word: " + result.get(result.size() - 1).getHighestTextFrequency()
+				+ "\nDocument location: " + result.get(result.size() - 1).getLocation());
 		sc.close();
 	}
 }

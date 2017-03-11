@@ -7,6 +7,8 @@ public class TextFrequency {
 	protected Map<Float, String> computeTextFrequency(URL location) {
 		Map<Float, String> wordCount = new HashMap<Float, String>();
 		Map<Float, String> sortedWordCount;
+		String documentName = location.toString();
+		documentName = documentName.substring(documentName.lastIndexOf("/")+1);
 		try {
 			Scanner sc = new Scanner(location.openStream());
 			String text = "";
@@ -19,7 +21,7 @@ public class TextFrequency {
 			String[] uniqueKeys;
 			int count = 0, queequegCount = 0, whaleCount = 0, seaCount = 0;
 			// Identify unique words from the document
-			uniqueKeys = getUniqueKeys(keys);
+			uniqueKeys = getUniqueWords(keys);
 			for (String key : uniqueKeys) {
 				if (null == key) {
 					break;
@@ -43,9 +45,10 @@ public class TextFrequency {
 				wordCount.put(((float) count / keys.length), key);
 				count = 0;
 			}
-			System.out.println("Text Frequency of queequeg is : " + ((float) queequegCount / keys.length));
-			System.out.println("Text Frequency of whale is : " + ((float) whaleCount / keys.length));
-			System.out.println("Text Frequency of sea is : " + ((float) seaCount / keys.length));
+			
+			System.out.println("Text Frequency of queequeg in " + documentName + ": " + ((float) queequegCount / keys.length));
+			System.out.println("Text Frequency of whale in " + documentName + ": " + ((float) whaleCount / keys.length));
+			System.out.println("Text Frequency of sea in " + documentName + ": " + ((float) seaCount / keys.length)+"\n");
 			sc.close();
 		} catch (MalformedURLException e) {
 			System.out.println(e);
@@ -60,23 +63,23 @@ public class TextFrequency {
 	}
 	
 	//getUniqueKeys() identifies duplicates. 
-	private static String[] getUniqueKeys(String[] keys) {
-		String[] uniqueKeys = new String[keys.length];
-		uniqueKeys[0] = keys[0];
-		int uniqueKeyIndex = 1;
-		boolean keyAlreadyExists = false;
-		for (int i = 1; i < keys.length; i++) {
-			for (int j = 0; j <= uniqueKeyIndex; j++) {
-				if (keys[i].equals(uniqueKeys[j])) {
-					keyAlreadyExists = true;
+	private static String[] getUniqueWords(String[] text) {
+		String[] uniqueWords = new String[text.length];
+		uniqueWords[0] = text[0];
+		int uniqueWordCount = 1;
+		boolean wordExists = false;
+		for (int i = 1; i < text.length; i++) {
+			for (int j = 0; j <= uniqueWordCount; j++) {
+				if (text[i].equals(uniqueWords[j])) {
+					wordExists = true;
 				}
 			}
-			if (!keyAlreadyExists) {
-				uniqueKeys[uniqueKeyIndex] = keys[i];
-				uniqueKeyIndex++;
+			if (!wordExists) {
+				uniqueWords[uniqueWordCount] = text[i];
+				uniqueWordCount++;
 			}
-			keyAlreadyExists = false;
+			wordExists = false;
 		}
-		return uniqueKeys;
+		return uniqueWords;
 	}
 }
